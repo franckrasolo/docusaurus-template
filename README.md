@@ -19,6 +19,9 @@ Into an existing Git repository, without creating a nested Git repository:
 ```
 $ pnpm create docusaurus [name] \
     --git-strategy=copy https://github.com/franckrasolo/docusaurus-template
+
+# remove unnecessary files and directories
+$ cd [name] && pnpm zap
 ```
 
 See the Docusaurus documentation on

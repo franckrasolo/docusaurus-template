@@ -9,6 +9,7 @@
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
+    "zap": "rm -rvf .devenv* .envrc banner-*.png devenv.* LICENSE README.md",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
