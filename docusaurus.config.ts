@@ -1,102 +1,221 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import type * as PluginContentDocs from '@docusaurus/plugin-content-docs';
 import type * as Preset from '@docusaurus/preset-classic';
+import type {Config} from '@docusaurus/types';
+import path from 'path';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+const copyright = `Copyright © ${new Date().getFullYear()} My Docusaurus Site.`;
 
 const config: Config = {
-  title: 'My Site',
+  title: 'My Docusaurus Site',
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
-
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  organizationName: 'TBD',
+  projectName: 'my-docusaurus-site',
+  url: 'https://docusaurus.io',
   baseUrl: '/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
-
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
+  future: {
+    experimental_faster: true,
+  },
+  trailingSlash: false, // because trailing slashes can break some existing relative links
+  scripts: [
+    {
+      src: 'https://cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js',
+      defer: true,
+    },
+    {
+      src: 'https://widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgd8ryO5qrZo8Exadq9qmt1wtm4_2FdZGEAKHDFEt_2BBlwwM4.js',
+      defer: true,
+    },
+    {src: 'https://snack.expo.dev/embed.js', defer: true},
+    {src: 'https://platform.twitter.com/widgets.js', async: true},
+  ],
+  favicon: 'img/favicon.ico',
+  titleDelimiter: '·',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
+  onBrokenLinks: 'warn',
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
+          path: 'blog',
+          blogTitle: 'My Docusaurus Blog',
+          blogDescription: 'Musings from Jurassic times...',
+          blogSidebarCount: 'ALL',
+          blogSidebarTitle: 'All Posts',
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
           showReadingTime: true,
+          postsPerPage: 5,
           feedOptions: {
             type: ['rss', 'atom'],
+            copyright: copyright,
             xslt: true,
           },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            require.resolve('./src/css/customTheme.scss'),
+            require.resolve('./src/css/index.scss'),
+            require.resolve('./src/css/showcase.scss'),
+            require.resolve('./src/css/versions.scss'),
+          ],
         },
       } satisfies Preset.Options,
     ],
   ],
-
+  plugins: [
+    'docusaurus-plugin-sass',
+  ],
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        indexBlog: true,
+        indexDocs: true,
+        indexPages: true,
+        hashed: true, // recommended as long-term cache of index file is possible
+        highlightSearchTermsOnTargetPage: true,
+        language: ["en"],
+        searchBarPosition: "auto",
+        searchBarShortcut: true,
+        searchBarShortcutHint: true,
+        searchResultLimits: 10,
+        searchResultContextMaxLength: 240,
+      }),
+    ],
+  ],
   themeConfig: {
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    colorMode: {
+      defaultMode: 'light',
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
+    },
+    announcementBar: {
+      id: 'banner',
+      content:
+        '✨ New Docusaurus template styled after the clean <a target="_blank" rel="noopener noreferrer" href="https://reactnative.dev/">React Native</a> docs ✨',
+      backgroundColor: '#20232a',
+      textColor: '#fff',
+      isCloseable: true,
+    },
+    prism: {
+      defaultLanguage: 'plain',
+      theme: require('./core/PrismTheme'),
+      additionalLanguages: [
+        'applescript',
+        'bash',
+        'diff',
+        'editorconfig',
+        'graphql',
+        'haskell',
+        'hcl',
+        'java',
+        'jq',
+        'json',
+        'json5',
+        'jsx',
+        'kotlin',
+        'lua',
+        'markdown',
+        'mermaid',
+        'moonscript',
+        'nix',
+        // 'plantuml',
+        'python',
+        'rust',
+        // 'shell',
+        'sql',
+        // 'svg',
+        'swift',
+        'toml',
+        'tsx',
+        'typescript',
+        'yaml',
+      ],
+      magicComments: [
+        {
+          className: 'theme-code-block-highlighted-line',
+          line: 'highlight-next-line',
+          block: {start: 'highlight-start', end: 'highlight-end'},
+        },
+        {
+          className: 'code-add-line',
+          line: 'highlight-add-next-line',
+          block: {start: 'highlight-add-start', end: 'highlight-add-end'},
+        },
+        {
+          className: 'code-remove-line',
+          line: 'highlight-remove-next-line',
+          block: {
+            start: 'highlight-remove-start',
+            end: 'highlight-remove-end',
+          },
+        },
+      ],
+    },
     navbar: {
-      title: 'My Site',
+      title: 'My Docusaurus Site',
       logo: {
-        alt: 'My Site Logo',
         src: 'img/logo.svg',
+        alt: 'My Docusaurus Site',
       },
+      style: 'dark',
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial',
+          label: 'Tutorials',
+          type: 'dropdown',
+          position: 'right',
+          items: [
+            {
+              label: 'Basics',
+              type: 'doc',
+              docId: '/category/tutorial---basics',
+            },
+            {
+              label: 'Extras',
+              type: 'doc',
+              docId: '/category/tutorial---extras',
+            },
+          ],
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          to: '/blog',
+          label: 'Blog',
+          position: 'right',
+        },
         {
           href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
+          'aria-label': 'GitHub repository',
+          className: 'navbar-github-link',
           position: 'right',
         },
       ],
     },
+    image: 'img/logo-share.png',
     footer: {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Tutorials',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Basics',
+              to: 'docs/category/tutorial---basics',
+            },
+            {
+              label: 'Extras',
+              to: 'docs/category/tutorial---extras',
             },
           ],
         },
@@ -104,16 +223,20 @@ const config: Config = {
           title: 'Community',
           items: [
             {
+              label: 'Help',
+              href: 'https://docusaurus.io/community/support',
+            },
+            {
+              label: 'Feature Requests',
+              href: 'https://docusaurus.io/feature-requests',
+            },
+            {
               label: 'Stack Overflow',
               href: 'https://stackoverflow.com/questions/tagged/docusaurus',
             },
             {
               label: 'Discord',
               href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
             },
           ],
         },
@@ -131,13 +254,26 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      logo: {
+        alt: 'Dinosaur Logo',
+        src: 'img/logo.svg',
+        href: 'https://docusaurus.io',
+      },
+      copyright,
     },
-    prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-    },
+    metadata: [
+      {
+        property: 'og:image',
+        content: 'https://reactnative.dev/img/logo-share.png',
+      },
+      {name: 'twitter:card', content: 'summary_large_image'},
+      {
+        name: 'twitter:image',
+        content: 'https://reactnative.dev/img/logo-share.png',
+      },
+      {name: 'twitter:site', content: '@reactnative'},
+    ],
   } satisfies Preset.ThemeConfig,
 };
 
-export default config;
+module.exports = config;
