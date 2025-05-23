@@ -1,5 +1,7 @@
 # Docusaurus Template
 
+[![Built with Nix and devenv](https://img.shields.io/badge/Built_with-devenv-43329C.svg?style=flat&logo=nixos&logoColor=white&label=Nix%20with&labelColor=5277C3&suffix=devenv)](https://devenv.sh)
+
 This repository hosts a template for [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 It borrows heavily from the clean theme and styles of the [React Native](https://reactnative.dev/) documentation.
