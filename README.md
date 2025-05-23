@@ -9,6 +9,8 @@ to enable offline/local search of blogs, documentation and static pages.
 
 *It was tested on Docusaurus 3.7.0 with Node.js 24.0.2 and `pnpm` 10.11.0.*
 
+![banner](banner-readme.png)
+
 ### Installation
 
 ```
