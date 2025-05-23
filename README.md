@@ -15,16 +15,14 @@ to enable offline/local search of blogs, documentation and static pages.
 
 ### Installation
 
+Into an existing Git repository, without creating a nested Git repository:
 ```
-$ pnpm create docusaurus <project-name> classic --typescript --git-strategy=copy
-```
-
-And then install dependencies with:
-
-```
-$ pnpm install
+$ pnpm create docusaurus [name] \
+    --git-strategy=copy https://github.com/franckrasolo/docusaurus-template
 ```
 
+See the Docusaurus documentation on
+the available [Git strategies](https://docusaurus.io/docs/api/misc/create-docusaurus#git-strategy).
 
 ### Local Development
 
